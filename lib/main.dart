@@ -1,3 +1,5 @@
+import 'package:cinemacuenca/config/router/app_router.dart';
+import 'package:cinemacuenca/config/theme/app_theme.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -9,13 +11,10 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp.router(
+      routerConfig: appRouter,
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: Center(
-          child: Text('hola amigos!'),
-        ),
-      ),
+      theme: AppTheme().getTheme(),
     );
   }
 }
