@@ -1,4 +1,3 @@
-import 'package:cinemacuenca/config/constants/enviroment.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -7,10 +6,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: Text(' la llve es ${Enviroment.theMovieDbKey}'),
-      ),
+    return const Scaffold(
+      body: Placeholder(),
     );
   }
 }
