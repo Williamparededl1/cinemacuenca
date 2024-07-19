@@ -28,11 +28,17 @@ class _HomeViewState extends ConsumerState<_HomeView> {
   void initState() {
     super.initState();
     ref.read(nowPlayingMoviesProvider.notifier).loadNextPage();
+    ref.read(popularMoviesProvider.notifier).loadNextPage();
+    ref.read(upComingMoviesProvider.notifier).loadNextPage();
+    ref.read(topRatedMoviesProvider.notifier).loadNextPage();
   }
 
   @override
   Widget build(BuildContext context) {
     final nowPlayingMovies = ref.watch(nowPlayingMoviesProvider);
+    final popularMovies = ref.watch(popularMoviesProvider);
+    final upComingMovies = ref.watch(upComingMoviesProvider);
+    final topRatedMovies = ref.watch(topRatedMoviesProvider);
     final slideShowMovies = ref.watch(moviesSlideshowProvider);
 
     return CustomScrollView(slivers: [
@@ -57,25 +63,25 @@ class _HomeViewState extends ConsumerState<_HomeView> {
                   ref.read(nowPlayingMoviesProvider.notifier).loadNextPage(),
             ),
             MovieHorizontalListview(
-              movies: nowPlayingMovies,
+              movies: upComingMovies,
               title: 'Proximamente',
               subtitle: 'En este mes',
               loadNetPage: () =>
-                  ref.read(nowPlayingMoviesProvider.notifier).loadNextPage(),
+                  ref.read(upComingMoviesProvider.notifier).loadNextPage(),
             ),
             MovieHorizontalListview(
-              movies: nowPlayingMovies,
+              movies: popularMovies,
               title: 'Populares',
               subtitle: 'Desde siempre',
               loadNetPage: () =>
-                  ref.read(nowPlayingMoviesProvider.notifier).loadNextPage(),
+                  ref.read(popularMoviesProvider.notifier).loadNextPage(),
             ),
             MovieHorizontalListview(
-              movies: nowPlayingMovies,
+              movies: topRatedMovies,
               title: 'Mejor Calificadas',
               subtitle: 'De todos los tiempos',
               loadNetPage: () =>
-                  ref.read(nowPlayingMoviesProvider.notifier).loadNextPage(),
+                  ref.read(topRatedMoviesProvider.notifier).loadNextPage(),
             ),
             const SizedBox(
               height: 50,
