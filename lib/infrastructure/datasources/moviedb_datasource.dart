@@ -2,6 +2,7 @@ import 'package:cinemacuenca/config/constants/enviroment.dart';
 import 'package:cinemacuenca/domain/datasources/movies_datasource.dart';
 import 'package:cinemacuenca/domain/entities/movie.dart';
 import 'package:cinemacuenca/infrastructure/mappers/movie_mapper.dart';
+import 'package:cinemacuenca/infrastructure/models/moviedb/movie_details.dart';
 import 'package:cinemacuenca/infrastructure/models/moviedb/moviedb_response.dart';
 import 'package:dio/dio.dart';
 
@@ -56,5 +57,18 @@ class MoviedbDatasource extends MoviesDatasource {
         await dio.get('/movie/upcoming', queryParameters: {'page': page});
 
     return _jsonToMovies(response.data);
+  }
+
+  @override
+  Future<Movie> getMovieById(String id) async {
+    final response = await dio.get('/movie/$id');
+    if (response.statusCode != 200) {
+      throw Exception('La pelicula con el id: $id, no se encuentra');
+    }
+
+    final movieDetails = MovieDetails.fromJson(response.data);
+    final Movie movie = MovieMapper.movieDetailsToEntity(movieDetails);
+
+    return movie;
   }
 }
