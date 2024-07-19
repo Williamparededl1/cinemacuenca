@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:card_swiper/card_swiper.dart';
 import 'package:cinemacuenca/domain/entities/movie.dart';
 import 'package:flutter/material.dart';
@@ -9,12 +10,18 @@ class MoviesSlidesshow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return SizedBox(
       height: 220,
       width: double.infinity,
       child: Swiper(
         viewportFraction: 0.8,
         scale: 0.9,
+        autoplay: true,
+        pagination: SwiperPagination(
+            margin: const EdgeInsets.only(top: 0),
+            builder: DotSwiperPaginationBuilder(
+                activeColor: colors.primary, color: colors.secondary)),
         itemCount: movies.length,
         itemBuilder: (context, index) => _Slide(movie: movies[index]),
       ),
@@ -49,7 +56,7 @@ class _Slide extends StatelessWidget {
                         decoration: BoxDecoration(color: Colors.black12));
                   }
 
-                  return child;
+                  return FadeIn(child: child);
                 },
               ))),
     );
