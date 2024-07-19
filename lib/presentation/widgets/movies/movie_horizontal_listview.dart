@@ -133,7 +133,7 @@ class _Title extends StatelessWidget {
     final titleStyleTs = Theme.of(context).textTheme.titleSmall;
     final titleStyleTm = Theme.of(context).textTheme.titleMedium;
     return Container(
-      padding: EdgeInsets.only(top: 10),
+      padding: const EdgeInsets.only(top: 10),
       margin: const EdgeInsets.symmetric(horizontal: 10),
       child: Row(
         children: [
