@@ -33,7 +33,7 @@ class _HomeViewState extends ConsumerState<_HomeView> {
   @override
   Widget build(BuildContext context) {
     final nowPlayingMovies = ref.watch(nowPlayingMoviesProvider);
-    final slideShowMovies = ref.watch(MoviesSlideshowProvider);
+    final slideShowMovies = ref.watch(moviesSlideshowProvider);
 
     return Column(
       children: [
@@ -43,6 +43,8 @@ class _HomeViewState extends ConsumerState<_HomeView> {
           movies: nowPlayingMovies,
           title: 'En Cines',
           subtitle: 'Viernes 19',
+          loadNetPage: () =>
+              ref.read(nowPlayingMoviesProvider.notifier).loadNextPage(),
         )
       ],
     );
