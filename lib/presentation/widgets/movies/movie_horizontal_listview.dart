@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:cinemacuenca/domain/entities/movie.dart';
 import 'package:flutter/material.dart';
 
@@ -24,10 +25,100 @@ class MovieHorizontalListview extends StatelessWidget {
             _Title(
               title: title,
               subtitle: subtitle,
-            )
+            ),
+          Expanded(
+              child: ListView.builder(
+            itemCount: movies.length,
+            scrollDirection: Axis.horizontal,
+            physics: const BouncingScrollPhysics(),
+            itemBuilder: (context, index) {
+              return _Slide(movie: movies[index]);
+            },
+          ))
         ],
       ),
     );
+  }
+}
+
+class _Slide extends StatelessWidget {
+  final Movie movie;
+  const _Slide({required this.movie});
+
+  @override
+  Widget build(BuildContext context) {
+    final titleStyleT = Theme.of(context).textTheme;
+    return Container(
+        margin: const EdgeInsets.symmetric(horizontal: 7),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            //* Esto es la Imagen de la cartelera
+            SizedBox(
+              width: 150,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Image.network(
+                  movie.posterPath,
+                  fit: BoxFit.cover,
+                  width: 150,
+                  loadingBuilder: (context, child, loadingProgress) {
+                    if (loadingProgress != null) {
+                      return const Padding(
+                        padding: EdgeInsets.only(top: 80),
+                        child: Center(
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                          ),
+                        ),
+                      );
+                    }
+
+                    return FadeInUp(child: child);
+                  },
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            //* Title
+
+            SizedBox(
+              width: 150,
+              child: Center(
+                child: Text(
+                  movie.title,
+                  maxLines: 2,
+                  style: titleStyleT.titleSmall,
+                ),
+              ),
+            ),
+
+            //* Rating
+
+            Row(
+              children: [
+                Icon(
+                  Icons.star_half_outlined,
+                  color: Colors.yellow.shade800,
+                ),
+                const SizedBox(
+                  width: 3,
+                ),
+                Text(
+                  '${movie.voteAverage}',
+                  style: titleStyleT.bodyMedium
+                      ?.copyWith(color: Colors.yellow.shade800),
+                ),
+                const SizedBox(
+                  width: 15,
+                ),
+                Text('${movie.popularity}', style: titleStyleT.bodySmall)
+              ],
+            )
+          ],
+        ));
   }
 }
 
