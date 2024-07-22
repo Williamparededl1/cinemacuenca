@@ -59,7 +59,7 @@ class _MovieDescription extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final TextStyle = Theme.of(context).textTheme;
+    final textStyle = Theme.of(context).textTheme;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -85,7 +85,7 @@ class _MovieDescription extends StatelessWidget {
                   children: [
                     Text(
                       movie.title,
-                      style: TextStyle.titleLarge,
+                      style: textStyle.titleLarge,
                     ),
                     Text(movie.overview)
                   ],
