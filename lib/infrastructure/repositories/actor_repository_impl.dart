@@ -5,7 +5,7 @@ import 'package:cinemacuenca/domain/repositories/actors_repository.dart';
 class ActorRepositoryImpl extends ActorsRepository {
   final ActorsDatasource datasource;
 
-  ActorRepositoryImpl({required this.datasource});
+  ActorRepositoryImpl(this.datasource);
 
   @override
   Future<List<Actor>> getActorsByMovie(String movieID) {

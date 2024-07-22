@@ -4,6 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final actorsRepositoryProvider = Provider(
   (ref) {
-    return ActorRepositoryImpl(datasource: ActorMoviedbDatasource());
+    return ActorRepositoryImpl(ActorMoviedbDatasource());
   },
 );
