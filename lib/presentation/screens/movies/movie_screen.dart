@@ -143,16 +143,16 @@ class _ActorByMovie extends ConsumerWidget {
         itemCount: actorByMovie.length,
         itemBuilder: (context, index) {
           final actor = actorByMovie[index];
-          return FadeInRight(
-            child: Container(
-              padding: const EdgeInsets.all(8.0),
-              width: 135,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  // Actor Photo
+          return Container(
+            padding: const EdgeInsets.all(8.0),
+            width: 135,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Actor Photo
 
-                  ClipRRect(
+                FadeInDown(
+                  child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),
                     child: Image.network(
                       actor.profilePath,
@@ -161,28 +161,28 @@ class _ActorByMovie extends ConsumerWidget {
                       fit: BoxFit.cover,
                     ),
                   ),
+                ),
 
-                  //Actor Name
-                  const SizedBox(
-                    height: 5,
-                  ),
+                //Actor Name
+                const SizedBox(
+                  height: 5,
+                ),
 
-                  Text(
-                    actor.name,
-                    maxLines: 2,
-                  ),
+                Text(
+                  actor.name,
+                  maxLines: 2,
+                ),
 
-                  //Actor Character
+                //Actor Character
 
-                  Text(
-                    actor.character ?? '',
-                    maxLines: 2,
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        overflow: TextOverflow.ellipsis),
-                  ),
-                ],
-              ),
+                Text(
+                  actor.character ?? '',
+                  maxLines: 2,
+                  style: const TextStyle(
+                      fontWeight: FontWeight.bold,
+                      overflow: TextOverflow.ellipsis),
+                ),
+              ],
             ),
           );
         },
@@ -234,6 +234,10 @@ class _ImageBackgroundSliver extends StatelessWidget {
           child: Image.network(
             urlImg,
             fit: BoxFit.cover,
+            loadingBuilder: (context, child, loadingProgress) {
+              if (loadingProgress != null) return const SizedBox();
+              return FadeIn(child: child);
+            },
           ),
         ),
         const SizedBox.expand(
