@@ -1,7 +1,9 @@
+import 'package:cinemacuenca/domain/entities/movie.dart';
 import 'package:cinemacuenca/presentation/delegates/search_movie_delegate.dart';
 import 'package:cinemacuenca/presentation/providers/providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 class CustomAppbar extends ConsumerWidget {
   const CustomAppbar({super.key});
@@ -34,10 +36,15 @@ class CustomAppbar extends ConsumerWidget {
                     onPressed: () {
                       final movieRepository =
                           ref.read(moviesRepositoryProvider);
-                      showSearch(
-                          context: context,
-                          delegate: SearchMovieDelegate(
-                              searchMovies: movieRepository.searchMovies));
+                      showSearch<Movie?>(
+                              context: context,
+                              delegate: SearchMovieDelegate(
+                                  searchMovies: movieRepository.searchMovies))
+                          .then((movie) {
+                        if (movie == null) return;
+
+                        context.push('/movie/${movie.id}');
+                      });
                     },
                     icon: const Icon(Icons.search))
               ],

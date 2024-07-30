@@ -20,8 +20,10 @@ class MovieMapper {
       popularity: movieDBToMovieDB.popularity,
       posterPath: (movieDBToMovieDB.posterPath != '')
           ? 'https://image.tmdb.org/t/p/w500${movieDBToMovieDB.posterPath}'
-          : 'no-poster',
-      releaseDate: movieDBToMovieDB.releaseDate,
+          : 'https://linnea.com.ar/wp-content/uploads/2018/09/404PosterNotFound.jpg',
+      releaseDate: movieDBToMovieDB.releaseDate != null
+          ? movieDBToMovieDB.releaseDate!
+          : DateTime.now(),
       title: movieDBToMovieDB.title,
       video: movieDBToMovieDB.video,
       voteAverage: movieDBToMovieDB.voteAverage,
