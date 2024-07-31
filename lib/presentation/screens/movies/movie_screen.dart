@@ -204,16 +204,20 @@ class _CustomSliverAppBar extends StatelessWidget {
       expandedHeight: size.height * 0.7,
       foregroundColor: Colors.white,
       shadowColor: Colors.red,
+      actions: [
+        IconButton(
+            onPressed: () {
+              //TODO: cambiar el estado de la peli
+            },
+            // icon: const Icon(
+            //   Icons.favorite_rounded,
+            //   color: Colors.red,
+            // )
+            icon: const Icon(Icons.favorite_border))
+      ],
       flexibleSpace: FlexibleSpaceBar(
         centerTitle: false,
         titlePadding: const EdgeInsets.symmetric(horizontal: 7),
-        // title: FadeInRight(
-        //   child: Text(
-        //     movie.title,
-        //     style: const TextStyle(color: Colors.white, fontSize: 15),
-        //     textAlign: TextAlign.start,
-        //   ),
-        // ),
         background: _ImageBackgroundSliver(
           urlImg: movie.posterPath,
         ),
@@ -240,25 +244,40 @@ class _ImageBackgroundSliver extends StatelessWidget {
             },
           ),
         ),
-        const SizedBox.expand(
-          child: DecoratedBox(
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      stops: [0.7, 1.0],
-                      colors: [Colors.transparent, Colors.black87]))),
-        ),
-        const SizedBox.expand(
-          child: DecoratedBox(
-              decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      stops: [0.0, 0.15],
-                      colors: [Colors.black87, Colors.transparent]))),
-        ),
+        const _CustomGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            stops: [0.7, 1.0],
+            colors: [Colors.transparent, Colors.black87]),
+        const _CustomGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            stops: [0.0, 0.20],
+            colors: [Colors.black87, Colors.transparent]),
       ],
+    );
+  }
+}
+
+class _CustomGradient extends StatelessWidget {
+  final Alignment begin;
+  final Alignment end;
+  final List<double> stops;
+  final List<Color> colors;
+
+  const _CustomGradient(
+      {required this.begin,
+      required this.end,
+      required this.stops,
+      required this.colors});
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox.expand(
+      child: DecoratedBox(
+          decoration: BoxDecoration(
+              gradient: LinearGradient(
+                  begin: begin, end: end, stops: stops, colors: colors))),
     );
   }
 }
