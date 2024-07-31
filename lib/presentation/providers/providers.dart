@@ -6,3 +6,4 @@ export 'movies/movie_info_provider.dart';
 export 'actors/actor_by_movie_provider.dart';
 export 'actors/actor_repository_provider.dart';
 export 'search/search_movie_provider.dart';
+export 'storage/local_storage_repository_provider.dart';

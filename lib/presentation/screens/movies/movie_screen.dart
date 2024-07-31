@@ -128,21 +128,21 @@ class _ActorByMovie extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final actorByMovie = ref.watch(actorsByMovieProvider)[movieId]!;
+    final actorByMovie = ref.watch(actorsByMovieProvider);
 
-    if (ref.watch(actorsByMovieProvider)[movieId] == null) {
+    if (actorByMovie[movieId] == null) {
       return const CircularProgressIndicator(
         strokeWidth: 2,
       );
     }
-
+    final actors = actorByMovie[movieId]!;
     return SizedBox(
       height: 300,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: actorByMovie.length,
+        itemCount: actors.length,
         itemBuilder: (context, index) {
-          final actor = actorByMovie[index];
+          final actor = actors[index];
           return Container(
             padding: const EdgeInsets.all(8.0),
             width: 135,
@@ -191,13 +191,13 @@ class _ActorByMovie extends ConsumerWidget {
   }
 }
 
-class _CustomSliverAppBar extends StatelessWidget {
+class _CustomSliverAppBar extends ConsumerWidget {
   final Movie movie;
 
   const _CustomSliverAppBar({required this.movie});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final size = MediaQuery.of(context).size;
     return SliverAppBar(
       backgroundColor: Colors.black,
@@ -207,7 +207,7 @@ class _CustomSliverAppBar extends StatelessWidget {
       actions: [
         IconButton(
             onPressed: () {
-              //TODO: cambiar el estado de la peli
+              ref.watch(localStorageRepositoryProvider).toggleFavorite(movie);
             },
             // icon: const Icon(
             //   Icons.favorite_rounded,
