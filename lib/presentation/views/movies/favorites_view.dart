@@ -1,4 +1,5 @@
 import 'package:cinemacuenca/presentation/providers/providers.dart';
+import 'package:cinemacuenca/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -20,15 +21,6 @@ class FavoritesViewState extends ConsumerState<FavoritesView> {
   Widget build(BuildContext context) {
     final mapMovies = ref.watch(favoriteMoviesProvider).values.toList();
 
-    return Scaffold(
-        body: ListView.builder(
-      itemCount: mapMovies.length,
-      itemBuilder: (context, index) {
-        final movie = mapMovies[index];
-        return ListTile(
-          title: Text(movie.title),
-        );
-      },
-    ));
+    return MovieMasonry(movies: mapMovies);
   }
 }
