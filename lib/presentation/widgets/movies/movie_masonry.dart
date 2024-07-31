@@ -13,8 +13,29 @@ class MovieMasonry extends StatefulWidget {
 }
 
 class _MovieMasonryState extends State<MovieMasonry> {
-  //Todo init
-  //Todo dispose
+  final scrollController = ScrollController();
+
+  @override
+  void initState() {
+    scrollController.addListener(
+      () {
+        if (widget.loadNextPage == null) return;
+
+        if ((scrollController.position.pixels + 100) >=
+            scrollController.position.maxScrollExtent) {
+          widget.loadNextPage!();
+        }
+      },
+    );
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
