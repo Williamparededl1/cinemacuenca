@@ -41,6 +41,7 @@ class _MovieMasonryState extends State<MovieMasonry> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: MasonryGridView.count(
+        controller: scrollController,
         crossAxisCount: 3,
         mainAxisSpacing: 10,
         crossAxisSpacing: 10,

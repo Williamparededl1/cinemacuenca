@@ -110,7 +110,6 @@ class _MovieDescription extends StatelessWidget {
             ],
           ),
         ),
-        //TODO: Actores
         _ActorByMovie(
           movieId: movie.id.toString(),
         ),
@@ -216,9 +215,12 @@ class _CustomSliverAppBar extends ConsumerWidget {
       actions: [
         IconButton(
           onPressed: () async {
+            // await ref
+            //     .read(localStorageRepositoryProvider)
+            //     .toggleFavorite(movie);
             await ref
-                .watch(localStorageRepositoryProvider)
-                .toggleFavorite(movie);
+                .read(favoriteMoviesProvider.notifier)
+                .toogleFavorite(movie);
             ref.invalidate(isFavoriteProvider(movie.id));
           },
 
