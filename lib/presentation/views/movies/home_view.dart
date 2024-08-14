@@ -2,6 +2,7 @@ import 'package:cinemacuenca/presentation/providers/providers.dart';
 import 'package:cinemacuenca/presentation/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
 
 class HomeView extends ConsumerStatefulWidget {
   const HomeView({super.key});
@@ -50,7 +51,7 @@ class HomeViewState extends ConsumerState<HomeView>
             MovieHorizontalListview(
               movies: nowPlayingMovies,
               title: 'En Cines',
-              subtitle: 'Viernes 19',
+              subtitle: DateFormat('yyyy-MM-dd').format(DateTime.now()),
               loadNetPage: () =>
                   ref.read(nowPlayingMoviesProvider.notifier).loadNextPage(),
             ),
